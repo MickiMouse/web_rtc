@@ -27,3 +27,4 @@ __pycache__/
 *.so
 *.pyc
 .env
+migrations/
