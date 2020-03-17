@@ -1,0 +1,7 @@
+venv/
+migrations/
+.idea/
+*.py[cod]
+*.pyc
+*.rdb
+__pycache__/
