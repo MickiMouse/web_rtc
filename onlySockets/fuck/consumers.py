@@ -1,4 +1,3 @@
-from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 from rest_framework.authtoken.models import Token
@@ -10,6 +9,7 @@ class Consumer(AsyncJsonWebsocketConsumer):
         self.conversation = await self.get_or_create_conversation()
 
         user = self.scope['user']
+        print(user)
 
         if user.is_anonymous:
             await self.close()
@@ -57,7 +57,8 @@ class Consumer(AsyncJsonWebsocketConsumer):
         self.scope['user'] = user
         name = ''.join(sorted([str(user.id), str(_id)],
                               key=lambda x: int(x)))
-        conversation, created = models.Conversation.objects.get_or_create(name=name)
+        conversation, created = models.Conversation.objects.get_or_create(
+            name=name)
         if created:
             conversation.users.add(user.id)
             conversation.users.add(_id)
