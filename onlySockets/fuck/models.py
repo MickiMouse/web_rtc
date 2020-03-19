@@ -3,13 +3,18 @@ from django.contrib.auth.models import AbstractUser
 
 
 class FuckUser(AbstractUser):
-    friends = models.ManyToManyField("self")
+    created = models.DateTimeField(auto_now_add=True)
+    friends = models.ManyToManyField('FuckUser')
+    avatar = models.ImageField(null=True)
 
     def subscribe(self, user):
         self.friends.add(user)
 
     def unsubscribe(self, user):
         self.friends.remove(user)
+
+    def __str__(self):
+        return self.username
 
 
 class Conversation(models.Model):
