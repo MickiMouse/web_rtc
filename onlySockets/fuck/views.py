@@ -17,6 +17,10 @@ def room(request, token, id):
     return HttpResponse('ok!')
 
 
+def online(request):
+    return HttpResponse('ok!')
+
+
 class TokenCreateAPIView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
