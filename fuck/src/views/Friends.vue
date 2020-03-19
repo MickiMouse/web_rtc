@@ -1,22 +1,30 @@
 <template>
-    <v-card>
-        <v-list id="chat" color="#353b4c" dark>
-            <template v-for="user in users">
-                <v-list-item two-line
-                             :key="user.id"
-                             @click="handlerRoute(user.id)"
-                >
-                    <v-list-item-avatar>
-                        <img :src="`https://randomuser.me/api/portraits/men/${user.id}.jpg`" alt="avatar">
-                    </v-list-item-avatar>
-                    <v-list-item-content>
-                        <v-list-item-title>{{user.username}}</v-list-item-title>
-                        <v-list-item-subtitle>{{user.id}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
-            </template>
-        </v-list>
-    </v-card>
+    <v-layout row justify-center>
+        <v-flex xs12 md6 lg6>
+            <v-list id="people" color="#353b4c" dark>
+                <template v-for="user in users">
+                    <v-list-item two-line
+                                 :key="user.id"
+                                 @click="handlerRoute(user.id)"
+                    >
+                        <v-list-item-avatar>
+                            <img :src="`https://randomuser.me/api/portraits/men/${user.id}.jpg`" alt="">
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                <span>{{user.username}}</span>
+                            </v-list-item-title>
+                            <v-list-item-subtitle>
+                                <v-chip v-if="users_online.includes(user.id)" small
+                                        color="#726bfa">online</v-chip>
+                            </v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </template>
+            </v-list>
+
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
@@ -27,7 +35,15 @@
         data: () => ({
             users: []
         }),
+        computed: {
+            users_online() {
+                return this.$store.getters.getOnlineUsers;
+            }
+        },
         methods: {
+            handlerConnect() {
+                this.$store.dispatch('checker', this.$route.params.id);
+            },
             handlerRoute(e) {
                 this.$router.push(`/chat/${e}`)
             },
@@ -43,14 +59,18 @@
             }
         },
         mounted() {
-            this.getUsers()
+            this.handlerConnect();
+            this.getUsers();
         }
     }
 </script>
 
 <style scoped>
-    #chat {
-        height: 600px;
+    #people {
+        height: 100%;
         overflow-y: auto;
+    }
+    #people::-webkit-scrollbar {
+        display: none;
     }
 </style>

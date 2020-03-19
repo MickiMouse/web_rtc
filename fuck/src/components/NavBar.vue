@@ -2,7 +2,7 @@
     <nav>
         <v-app-bar color="#3a4052" flat dark>
             <v-icon :disabled="!$store.getters.loggedIn" left @click="drawer = !drawer">menu</v-icon>
-            <v-toolbar-title class="text-uppercase display-1">social-network motherfucker</v-toolbar-title>
+            <v-toolbar-title class="text-uppercase display-1">chat</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn v-if="$store.getters.loggedIn" icon @click="logout">
                 <v-icon>power_settings_new</v-icon>
@@ -52,11 +52,12 @@
                            this.$cookie.delete('id');
                            this.$store.commit('removeToken');
                            delete axios.defaults.headers.common['Authorization'];
+                           this.$store.getters.getChecker.close()
                        }
                     })
                     .catch(error => {console.log(error)})
                     .finally(() => {this.$router.push('/login')});
             }
-        }
+        },
     }
 </script>

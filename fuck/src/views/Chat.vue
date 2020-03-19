@@ -1,8 +1,8 @@
 <template>
-    <v-content>
-        <v-container fluid fill-height>
+<!--    <v-content>-->
+<!--        <v-container fluid fill-height>-->
             <v-layout align-center justify-center>
-                <v-flex xs12 sm8 md4>
+                <v-flex xs12 sm8 md6>
                     <v-card tile
                             style="background-color: #353b4c;"
                     >
@@ -46,13 +46,18 @@
                     </v-card>
                 </v-flex>
             </v-layout>
-        </v-container>
-    </v-content>
+<!--        </v-container>-->
+<!--    </v-content>-->
 </template>
 
 <script>
     export default {
         name: "Chat",
+        props: {
+            user: {
+                type: Object
+            }
+        },
         data() {
             return {
                 msg: null
@@ -77,6 +82,7 @@
                 }
             },
             back() {
+                this.$store.commit('clearDialog');
                 this.$router.go(-1)
             }
         },
