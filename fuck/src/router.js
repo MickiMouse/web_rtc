@@ -12,7 +12,7 @@ export default new Router({
         {
             path: '/login',
             name: 'login',
-            component: () => import('@/components/Login'),
+            component: () => import('@/views/Login'),
             meta: {
                 title: 'Login',
                 requiresAuth: false
@@ -21,7 +21,7 @@ export default new Router({
         {
             path: '/main',
             name: 'main',
-            component: () => import('@/components/Main'),
+            component: () => import('@/views/Friends'),
             meta: {
                 title: 'Main',
                 requiresAuth: true
@@ -30,7 +30,7 @@ export default new Router({
         {
             path: '/chat/:id',
             name: 'chat',
-            component: () => import('@/components/Chat'),
+            component: () => import('@/views/Chat'),
             meta: {
                 title: 'Chat',
                 requiresAuth: true

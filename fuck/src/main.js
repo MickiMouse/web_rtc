@@ -10,7 +10,7 @@ import WebRTC from 'vue-webrtc';
 
 Vue.use(WebRTC);
 
-axios.defaults.baseURL = 'http://192.168.88.234:8000/';  // Пока что так
+axios.defaults.baseURL = 'http://192.168.0.7:8000/';  // Пока что так
 
 Vue.use(VueCookie);
 Vue.config.productionTip = false;

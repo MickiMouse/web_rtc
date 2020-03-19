@@ -43,7 +43,7 @@ export default new Vuex.Store({
     actions: {
         connect({commit}, id) {
             let socket = new WebSocket(
-                `ws://192.168.88.234:8000/ws/conversation/${Vue.cookie.get('token')}/${id}/`
+                `ws://192.168.0.7:8000/ws/conversation/${Vue.cookie.get('token')}/${id}/`
             );
             commit('CONNECT', socket);
             socket.onmessage = function (e) {

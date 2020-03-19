@@ -1,20 +1,21 @@
 <template>
     <v-container>
-        <v-card dark>
-            <v-card-title>Sign in</v-card-title>
-            <v-card-text>
-                <v-text-field v-model="username"
-                              label="Username"
-                />
-                <v-text-field v-model="password"
-                              type="password"
-                              label="Password"
-                />
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="login">Sign in</v-btn>
-            </v-card-actions>
-        </v-card>
+    <v-layout row justify-center>
+        <v-flex xs12 md6 lg6 xl6>
+            <v-text-field v-model="username"
+                          solo dark
+                          background-color="#726bfa"
+                          label="Username"
+            />
+            <v-text-field v-model="password"
+                          solo dark
+                          background-color="#726bfa"
+                          type="password"
+                          label="Password"
+            />
+            <v-btn @click="login" dark color="#726bfa">Login</v-btn>
+        </v-flex>
+    </v-layout>
     </v-container>
 </template>
 
@@ -34,7 +35,6 @@
                 const data = {username: this.username, password: this.password};
                 axios.post('login/', data).then(response => {
                     if (response.status === 200) {
-                        console.log(response.data);
                         let t = response.data.token;
                         let id = response.data.id;
                         this.$cookie.set('token', t);

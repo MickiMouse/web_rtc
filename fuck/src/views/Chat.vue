@@ -3,16 +3,20 @@
         <v-container fluid fill-height>
             <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md4>
-                    <v-card>
+                    <v-card tile
+                            style="background-color: #353b4c;"
+                    >
                         <v-card-title class="justify-space-between">
-                            <v-btn icon fab @click="back">
+                            <v-btn icon dark fab @click="back">
                                 <v-icon>keyboard_backspace</v-icon>
                             </v-btn>
-                            <v-subheader>Chat</v-subheader>
+                            <v-btn icon dark fab>
+                                <v-icon>more_vert</v-icon>
+                            </v-btn>
                         </v-card-title>
-                        <v-card-text>
+                        <v-card-text style="padding: 0 !important;">
                             <v-list ref="chat"
-                                    id="logs"
+                                    id="chat"
                                     two-line
                                     flat
                                     shaped
@@ -20,6 +24,7 @@
                                 <template v-for="(item, index) in messages">
                                     <div class="message-wrapper" :class="{'message-self': item.user === id}" :key="index">
                                         <div class="message"
+                                             :class="{'message-user': item.user === id}"
                                              v-if="item"
                                              :key="index"
                                         >
@@ -29,24 +34,15 @@
                                 </template>
                             </v-list>
                         </v-card-text>
-                        <v-card-actions class="align-end">
-<!--                            <v-text-field class="align-end"-->
-<!--                                          v-model="msg"-->
-<!--                                          label="Write message..."-->
-<!--                                          solo-->
-<!--                                          outlined-->
-<!--                                          v-on:keyup.enter="submit"-->
-<!--                            />-->
-                            <v-textarea v-model="msg"
-                                        solo
-                                        label="Write message..."
-                                        outlined
-                                        auto-grow
-                                        clearable
-                                        clear-icon="close"
-                                        v-on:keyup.enter="submit"
-                            />
-                        </v-card-actions>
+                        <div class="enter-message">
+                            <div class="emoji">
+                                <v-btn icon>
+                                    <v-icon color="#71798f" large>sentiment_satisfied</v-icon>
+                                </v-btn>
+                            </div>
+                            <div class="type_message">
+                            </div>
+                        </div>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -106,25 +102,32 @@
 </script>
 
 <style scoped>
-    #logs {
+    #chat {
         height: 600px;
         overflow: auto;
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
+        background-color: #353b4c;
+        padding: 0 !important;
+        /*margin-bottom: 50px;*/
+    }
+    #chat::-webkit-scrollbar {
+        display: none;
     }
     .message {
-        padding: 5px;
+        /* top right bottom left */
+        padding: 20px;
         width: fit-content;
         min-height: 32px;
         max-width: 75%;
         word-break: break-word;
         overflow: hidden;
-        margin: 3px 0;
-        border: 2px solid black;
-        border-radius: 10px;
-        color: black;
-        background-color: #eaeaea;
+        margin: 10px 20px 10px 20px;
+        border-radius: 0 20px 20px 20px;
+        font-size: 16px;
+        color: #e4e9f7;
+        background-color: #454d61;
     }
     .message-wrapper {
         display: flex;
@@ -132,5 +135,28 @@
     }
     .message-self {
         justify-content: flex-end;
+    }
+    .message-user {
+        background-color: #726bfa;
+        border-radius: 20px 0 20px 20px;
+    }
+    .enter-message {
+        background-color: #3a4052;
+        height: 100px;
+        display: flex;
+    }
+    .emoji {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        max-width: 100px;
+        flex-grow: 1;
+    }
+    .type_message {
+        flex-grow: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
